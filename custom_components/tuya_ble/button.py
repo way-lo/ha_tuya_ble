@@ -203,7 +203,7 @@ mapping: dict[str, TuyaBLECategoryButtonMapping] = {
     "ms": TuyaBLECategoryButtonMapping(
         products={
             **dict.fromkeys(
-                ["okkyfgfs", "k53ok3u9", "sidhzylo", "a6nttc41"],  # Smart Lock
+                ["okkyfgfs", "k53ok3u9", "sidhzylo", "a6nttc41", "0qxp5u7s"],  # Smart Lock
                 [
                     TuyaBLEButtonMapping(
                         dp_id=6,
