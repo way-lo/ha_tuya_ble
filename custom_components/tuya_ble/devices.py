@@ -70,6 +70,27 @@ class TuyaBLEWaterValveInfo:
 
 
 @dataclass
+class TuyaBLESmartLockInfo:
+    """Model a smart lock's DP code mapping.
+
+    All fields accept the integer DP id reported by the device.
+
+    lock_state_dp  – DP that carries the current bolt position.
+                     Value is treated as bool: True = locked.
+    lock_action_dp – DP used to command lock / unlock.
+                     Set True to lock, False to unlock.
+    open_dp        – Optional DP that triggers a momentary open /
+                     electric-strike release (True = open).
+    battery_dp     – Optional DP that reports battery percentage (0-100).
+    """
+
+    lock_state_dp: int
+    lock_action_dp: int
+    open_dp: int | None = None
+    battery_dp: int | None = None
+
+
+@dataclass
 class TuyaBLEProductInfo:
     """Model product info"""
 
@@ -78,6 +99,7 @@ class TuyaBLEProductInfo:
     fingerbot: TuyaBLEFingerbotInfo | None = None
     watervalve: TuyaBLEWaterValveInfo | None = None
     lock: int | None = None
+    smartlock: TuyaBLESmartLockInfo | None = None
 
 
 class TuyaBLEEntity(CoordinatorEntity):
@@ -372,6 +394,10 @@ devices_database: dict[str, TuyaBLECategoryInfo] = {
                 name="Fingerprint Smart Lock",
                 lock=1,
             ),
+            "0qxp5u7s": TuyaBLEProductInfo(
+                name="Pulido PLD_P130 Smart Lever Lock",
+                lock=1,
+            ),
         },
     ),
     "dcb": TuyaBLECategoryInfo(
@@ -583,9 +609,6 @@ devices_database: dict[str, TuyaBLECategoryInfo] = {
                         use_time=9,
                     ),
                 ),
-            ),
-            "ldcdnigc": TuyaBLEProductInfo(
-                name="ZX-7378 Smart Irrigation Controller",
             ),
         },
     ),
