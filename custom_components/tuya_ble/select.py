@@ -222,6 +222,7 @@ mapping: dict[str, TuyaBLECategorySelectMapping] = {
                     "uamrw6h3",
                     "okkyfgfs",
                     "sidhzylo",
+                    "0qxp5u7s",
                 ],  # Smart Lock
                 [
                     TuyaBLESelectMapping(
