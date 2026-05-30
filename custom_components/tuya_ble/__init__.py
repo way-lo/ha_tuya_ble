@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import logging
 
 from bleak_retry_connector import BLEAK_RETRY_EXCEPTIONS as BLEAK_EXCEPTIONS, get_device
@@ -35,10 +36,36 @@ PLATFORMS: list[Platform] = [
 
 _LOGGER = logging.getLogger(__name__)
 
+# How long to wait for the BLE adapter to be ready after HA starts (seconds)
+BLE_ADAPTER_READY_TIMEOUT = 10
+# How long to wait between update retry attempts (seconds)
+BLE_UPDATE_RETRY_DELAY = 5
+# How many times to retry the initial update before giving up
+BLE_UPDATE_RETRY_COUNT = 3
+
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Tuya BLE from a config entry."""
     address: str = entry.data[CONF_ADDRESS]
+
+    # Wait for the BLE adapter to be ready before attempting to find the device.
+    # This prevents silent failures when the integration loads before the
+    # Bluetooth stack has fully initialised after a reboot.
+    if not bluetooth.async_scanner_count(hass, connectable=True):
+        try:
+            await bluetooth.async_process_advertisements(
+                hass,
+                lambda service_info, _: True,
+                BluetoothCallbackMatcher({ADDRESS: address}),
+                bluetooth.BluetoothScanningMode.ACTIVE,
+                BLE_ADAPTER_READY_TIMEOUT,
+            )
+        except asyncio.TimeoutError:
+            _LOGGER.debug(
+                "BLE adapter not ready within %ss, proceeding anyway",
+                BLE_ADAPTER_READY_TIMEOUT,
+            )
+
     ble_device = bluetooth.async_ble_device_from_address(
         hass, address.upper(), True
     ) or await get_device(address)
@@ -46,6 +73,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         raise ConfigEntryNotReady(
             f"Could not find Tuya BLE device with address {address}"
         )
+
     manager = HASSTuyaBLEDeviceManager(hass, entry.options.copy())
     device = TuyaBLEDevice(manager, ble_device)
     await device.initialize()
@@ -53,15 +81,69 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     coordinator = TuyaBLECoordinator(hass, device)
 
-    """
-    try:
-        await device.update()
-    except BLEAK_EXCEPTIONS as ex:
+    # Attempt the initial status update with retries so that transient BLE
+    # errors at boot don't leave the device permanently unavailable.
+    last_exc: Exception | None = None
+    for attempt in range(1, BLE_UPDATE_RETRY_COUNT + 1):
+        try:
+            await device.update()
+            last_exc = None
+            break
+        except BLEAK_EXCEPTIONS as ex:
+            last_exc = ex
+            _LOGGER.debug(
+                "%s: Initial update attempt %d/%d failed: %s",
+                address,
+                attempt,
+                BLE_UPDATE_RETRY_COUNT,
+                ex,
+            )
+            if attempt < BLE_UPDATE_RETRY_COUNT:
+                await asyncio.sleep(BLE_UPDATE_RETRY_DELAY)
+
+    if last_exc is not None:
         raise ConfigEntryNotReady(
             f"Could not communicate with Tuya BLE device with address {address}"
-        ) from ex
-    """
-    hass.add_job(device.update())
+        ) from last_exc
+
+    @callback
+    def _async_update_ble(
+        service_info: bluetooth.BluetoothServiceInfoBleak,
+        change: bluetooth.BluetoothChange,
+    ) -> None:
+        """Update from a ble callback."""
+        device.set_ble_device_and_advertisement_data(
+            service_info.device, service_info.advertisement
+        )
+
+    entry.async_on_unload(
+        bluetooth.async_register_callback(
+            hass,
+            _async_update_ble,
+            BluetoothCallbackMatcher({ADDRESS: address}),
+            bluetooth.BluetoothScanningMode.ACTIVE,
+        )
+    )
+
+    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = TuyaBLEData(
+        entry.title,
+        device,
+        product_info,
+        manager,
+        coordinator,
+    )
+
+    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+    entry.async_on_unload(entry.add_update_listener(_async_update_listener))
+
+    async def _async_stop(event: Event) -> None:
+        """Close the connection."""
+        await device.stop()
+
+    entry.async_on_unload(
+        hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, _async_stop)
+    )
+    return True
 
     @callback
     def _async_update_ble(
