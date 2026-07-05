@@ -110,3 +110,57 @@ I am working on this integration in Ukraine. Our country was subjected to brutal
 <p align="center">
   <a href="https://www.buymeacoffee.com/3PaK6lXr4l"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy me an air defense"></a>
 </p>
+
+---
+
+## Tuya BLE — PLD_P130 Smart Lock Integration
+
+### New Device Support
+- Added **Pulido PLD_P130 Smart Lever Lock** (`0qxp5u7s`) to the `ms` category
+
+### Files Changed
+
+#### `__init__.py`
+- Added BLE adapter readiness check on startup using `bluetooth.async_scanner_count()`
+- Replaced fire-and-forget `hass.add_job(device.update())` and commented-out dead code with a proper 3-attempt retry loop (5 second delay between attempts)
+- Raises `ConfigEntryNotReady` on failure so HA automatically retries the config entry setup
+
+#### `devices.py`
+- Added `TuyaBLESmartLockInfo` dataclass for future locks requiring explicit DP id mapping
+- Added `smartlock` field to `TuyaBLEProductInfo`
+- Added `0qxp5u7s` as `"Pulido PLD_P130 Smart Lever Lock"`
+
+#### `lock.py`
+- Added `TuyaBLESmartLock` entity class driven by `TuyaBLESmartLockInfo` for future use
+- Legacy `TuyaBLELock` class preserved unchanged
+
+#### `button.py`
+- Added `0qxp5u7s` to the `ms` bluetooth unlock button mapping (DP 6)
+
+#### `select.py`
+- Excluded `0qxp5u7s` from the `ms` `beep_volume` group (DP 31) — confirmed not supported on the P130
+
+#### `sensor.py`
+- Added dedicated sensor mapping for `0qxp5u7s`:
+  - DP 8 — battery (`residual_electricity`)
+  - DP 21 — alarm lock state
+  - DP 12 — fingerprint unlock
+  - DP 19 — BLE unlock event counter
+- Excluded door sensor (DP 40) which is not present on the P130
+
+#### `switch.py`
+- Added dedicated switch mapping for `0qxp5u7s`:
+  - DP 46 — manual lock
+  - DP 47 — motor state
+  - DP 33 — free passage mode (direct logic, on = on)
+
+#### `strings.json`
+- Added `"Free Passage Mode"` display name
+
+#### `translations/en.json`
+- Added `"Free Passage Mode"` display name
+
+### Notes
+- DP 31 (`beep_volume`) is **not supported** on the P130 — confirmed by testing
+- DP 33 is labelled `automatic_lock` in Tuya's cloud but functions as **Free Passage Mode** on this device — when on, the lock holds open; when off, normal operation resumes
+- DP 32 (`reverse_lock`) is present on the device per Tuya cloud diagnostics but not yet mapped
