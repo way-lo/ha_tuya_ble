@@ -137,9 +137,6 @@ I am working on this integration in Ukraine. Our country was subjected to brutal
 #### `button.py`
 - Added `0qxp5u7s` to the `ms` bluetooth unlock button mapping (DP 6)
 
-#### `select.py`
-- Excluded `0qxp5u7s` from the `ms` `beep_volume` group (DP 31) — confirmed not supported on the P130
-
 #### `sensor.py`
 - Added dedicated sensor mapping for `0qxp5u7s`:
   - DP 8 — battery (`residual_electricity`)
