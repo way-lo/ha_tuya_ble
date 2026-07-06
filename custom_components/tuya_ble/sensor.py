@@ -302,6 +302,7 @@ mapping: dict[str, TuyaBLECategorySensorMapping] = {
                 ),
             ],
             "0qxp5u7s": [  # Pulido PLD_P130 Smart Lever Lock
+                # Fingerprint unlock only (no keypad, card, or door sensor)
                 TuyaBLEAlarmLockStateMapping(dp_id=21),
                 TuyaBLEBatteryMapping(dp_id=8),
                 TuyaBLESensorMapping(
@@ -309,15 +310,6 @@ mapping: dict[str, TuyaBLECategorySensorMapping] = {
                     description=SensorEntityDescription(
                         key="unlock_fingerprint",
                         icon="mdi:fingerprint",
-                        suggested_display_precision=0,
-                        entity_category=EntityCategory.DIAGNOSTIC,
-                    ),
-                ),
-                TuyaBLESensorMapping(
-                    dp_id=19,
-                    description=SensorEntityDescription(
-                        key="unlock_ble",
-                        icon="mdi:bluetooth",
                         suggested_display_precision=0,
                         entity_category=EntityCategory.DIAGNOSTIC,
                     ),
@@ -334,6 +326,7 @@ mapping: dict[str, TuyaBLECategorySensorMapping] = {
                     "oyqux5vv",  # LA-01 - Experimental
                     "ajk32biq",  # B16
                     "z7lj676i",  # Smart Cylinder Lock - Experimental
+                    "hs21i377",  # Smart Cylinder Lock (LVD11_BK)
                 ],
                 [
                     TuyaBLEAlarmLockStateMapping(dp_id=21),
