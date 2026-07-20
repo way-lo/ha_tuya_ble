@@ -32,6 +32,8 @@ PLATFORMS: list[Platform] = [
     Platform.SWITCH,
     Platform.TEXT,
     Platform.COVER,
+    Platform.EVENT,
+    Platform.VACUUM,
 ]
 
 _LOGGER = logging.getLogger(__name__)
@@ -46,6 +48,7 @@ BLE_UPDATE_RETRY_COUNT = 3
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Tuya BLE from a config entry."""
+
     address: str = entry.data[CONF_ADDRESS]
 
     # Wait for the BLE adapter to be ready before attempting to find the device.
@@ -81,8 +84,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     coordinator = TuyaBLECoordinator(hass, device)
 
-    # Attempt the initial status update with retries so that transient BLE
-    # errors at boot don't leave the device permanently unavailable.
     last_exc: Exception | None = None
     for attempt in range(1, BLE_UPDATE_RETRY_COUNT + 1):
         try:
@@ -105,45 +106,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         raise ConfigEntryNotReady(
             f"Could not communicate with Tuya BLE device with address {address}"
         ) from last_exc
-
-    @callback
-    def _async_update_ble(
-        service_info: bluetooth.BluetoothServiceInfoBleak,
-        change: bluetooth.BluetoothChange,
-    ) -> None:
-        """Update from a ble callback."""
-        device.set_ble_device_and_advertisement_data(
-            service_info.device, service_info.advertisement
-        )
-
-    entry.async_on_unload(
-        bluetooth.async_register_callback(
-            hass,
-            _async_update_ble,
-            BluetoothCallbackMatcher({ADDRESS: address}),
-            bluetooth.BluetoothScanningMode.ACTIVE,
-        )
-    )
-
-    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = TuyaBLEData(
-        entry.title,
-        device,
-        product_info,
-        manager,
-        coordinator,
-    )
-
-    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
-    entry.async_on_unload(entry.add_update_listener(_async_update_listener))
-
-    async def _async_stop(event: Event) -> None:
-        """Close the connection."""
-        await device.stop()
-
-    entry.async_on_unload(
-        hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, _async_stop)
-    )
-    return True
 
     @callback
     def _async_update_ble(
