@@ -150,7 +150,13 @@ mapping: dict[str, TuyaBLECategoryButtonMapping] = {
     "kg": TuyaBLECategoryButtonMapping(
         products={
             **dict.fromkeys(
-                ["mknd4lci", "riecov42", "bs3ubslo", "gnpbj0bq"],  # Fingerbot Plus
+                [
+                    "mknd4lci",
+                    "riecov42",
+                    "bs3ubslo",
+                    "gnpbj0bq",
+                    "6jcvqwh0",
+                ],  # Fingerbot Plus
                 [
                     TuyaBLEFingerbotModeMapping(dp_id=108),
                 ],
@@ -171,6 +177,14 @@ mapping: dict[str, TuyaBLECategoryButtonMapping] = {
     ),
     "jtmspro": TuyaBLECategoryButtonMapping(
         products={
+            "uyf1ewof": [
+                TuyaBLEButtonMapping(
+                    dp_id=6,
+                    description=ButtonEntityDescription(
+                        key="bluetooth_unlock",
+                    ),
+                ),
+            ],
             "hc7n0urm": [  # A1 Ultra-JM
                 TuyaBLEButtonMapping(
                     dp_id=71,  # BLE unlock check
@@ -185,7 +199,6 @@ mapping: dict[str, TuyaBLECategoryButtonMapping] = {
                     "stugc8dl",  # HU06 Smart Lock
                     "xicdxood",  # Raycube K7 Pro+
                     "rlyxv7pe",  # A1 PRO MAX
-                    "oyqux5vv",  # LA-01
                 ],
                 [
                     # Raycube K7 Pro+, unclear if applicable to A1 PRO MAX
@@ -199,6 +212,16 @@ mapping: dict[str, TuyaBLECategoryButtonMapping] = {
                     ),
                 ],
             ),
+            "oyqux5vv": [  # LA-01 Smart lock
+                TuyaBLEButtonMapping(
+                    dp_id=71,
+                    description=ButtonEntityDescription(
+                        key="bluetooth_unlock",
+                        icon="mdi:lock-open-variant-outline",
+                    ),
+                    dp_type=TuyaBLEDataPointType.DT_RAW,
+                ),
+            ],
             "hs21i377": [  # Raycube K7 Pro+
                 TuyaBLEButtonMapping(
                     dp_id=71,
@@ -228,7 +251,14 @@ mapping: dict[str, TuyaBLECategoryButtonMapping] = {
     "ms": TuyaBLECategoryButtonMapping(
         products={
             **dict.fromkeys(
-                ["okkyfgfs", "k53ok3u9", "sidhzylo", "a6nttc41", "0qxp5u7s"],  # Smart Lock
+                [
+                    "okkyfgfs",
+                    "k53ok3u9",
+                    "sidhzylo",
+                    "a6nttc41",
+                    "wgv4haro",
+                    "0qxp5u7s",
+                ],  # Smart Lock
                 [
                     TuyaBLEButtonMapping(
                         dp_id=6,
@@ -244,6 +274,15 @@ mapping: dict[str, TuyaBLECategoryButtonMapping] = {
                     # ),
                 ],
             ),
+            "kpn4zaf7": [
+                TuyaBLEButtonMapping(
+                    dp_id=71,  # BLE unlock check
+                    description=ButtonEntityDescription(
+                        key="ble_unlock_check",
+                        icon="mdi:lock-open-variant-outline",
+                    ),
+                ),
+            ],
         }
     ),
 }
@@ -278,8 +317,8 @@ class TuyaBLEButton(TuyaBLEEntity, ButtonEntity):
         self._mapping = mapping
 
     async def _run_hs21i377_unlock(self) -> None:
-        """Run the validated dp71 unlock flow for hs21i377."""
-        # hs21i377 uses a device-specific dp71 unlock payload.
+        """Run the validated dp71 unlock flow for hs21i377 and oyqux5vv."""
+        # hs21i377 and oyqux5vv (LA-01) use a device-specific dp71 unlock payload.
         # Practical testing confirmed multiple payload variants can unlock,
         # so this is not treated as a fixed "known lock code". We keep an
         # empirically validated value here until the payload semantics are
@@ -314,7 +353,7 @@ class TuyaBLEButton(TuyaBLEEntity, ButtonEntity):
             if self._mapping.description.key == "bluetooth_unlock":
                 self._hass.create_task(self._run_kholoaew_unlock())
                 return
-        if self._device.product_id == "hs21i377":
+        if self._device.product_id in ("hs21i377", "oyqux5vv"):
             if self._mapping.description.key == "bluetooth_unlock":
                 self._hass.create_task(self._run_hs21i377_unlock())
                 return

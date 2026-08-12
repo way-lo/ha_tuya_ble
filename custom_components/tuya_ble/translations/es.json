@@ -79,7 +79,7 @@
                 "name": "Nivel de alarma"
             },
             "countdown": {
-                "name": "Duración del riego"
+                "name": "Cuenta atrás"
             },
             "countdown_duration": {
                 "name": "Duración del riego"
@@ -136,6 +136,12 @@
             "weather_delay": {
                 "name": "Retraso meteorológico"
             },
+            "weather_delay_z1": {
+                "name": "Retraso meteorológico - Zona 1"
+            },
+            "weather_delay_z2": {
+                "name": "Retraso meteorológico - Zona 2"
+            },
             "smart_weather": {
                 "name": "Clima inteligente"
             },
@@ -148,6 +154,35 @@
             },
             "temperature_unit": {
                 "name": "Unidad de temperatura"
+            },
+            "timer": {
+                "name": "Temporizador",
+                "state": {
+                    "cancel": "Cancelar",
+                    "1h": "1 hora",
+                    "3h": "3 horas",
+                    "6h": "6 horas"
+                }
+            },
+            "scene": {
+                "name": "Escena",
+                "state": {
+                    "night": "Noche",
+                    "read": "Lectura",
+                    "work": "Trabajo",
+                    "rest": "Relajación",
+                    "grassland": "Pradera",
+                    "colorful": "Fiesta",
+                    "gorgeous": "Magnífico",
+                    "dazzle": "Deslumbrante"
+                }
+            },
+            "spray_mode": {
+                "name": "Modo de pulverización",
+                "state": {
+                    "small": "Bajo",
+                    "large": "Alto"
+                }
             }
         },
         "sensor": {
@@ -220,7 +255,18 @@
                 "name": "Humedad de suelo"
             },
             "work_state": {
-                "name": "Estado de funcionamiento"
+                "name": "Estado de funcionamiento",
+                "state": {
+                    "auto": "Automático",
+                    "manual": "Manual",
+                    "idle": "Inactivo"
+                }
+            },
+            "work_state_z1": {
+                "name": "Estado de funcionamiento - Zona 1"
+            },
+            "work_state_z2": {
+                "name": "Estado de funcionamiento - Zona 2"
             },
             "residual_electricity": {
                 "name": "Batería"
@@ -290,6 +336,9 @@
             },
             "unlock_temp_pwd": {
                 "name": "Última contraseña temporal utilizada"
+            },
+            "time_remaining": {
+                "name": "Tiempo restante"
             }
         },
         "switch": {
@@ -349,6 +398,9 @@
             },
             "window_check": {
                 "name": "Detección de ventanas"
+            },
+            "switch_spray": {
+                "name": "Pulverización"
             }
         },
         "text": {

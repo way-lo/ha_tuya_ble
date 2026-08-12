@@ -2,7 +2,7 @@
 
 ## Overview
 
-This integration is an almalgamation of a number of community maintained forks. It should be considered **unstable** quality at this time.
+This integration is an amalgamation of a number of community maintained forks. It should be considered **unstable** quality at this time.
 
 See full list of forks:
 https://github.com/ha-tuya-ble/ha_tuya_ble/issues/1
@@ -27,7 +27,12 @@ After adding to Home Assistant integration should discover all supported Bluetoo
 
 The integration works locally, but connection to Tuya BLE device requires device ID and encryption key from Tuya IOT cloud. It could be obtained using the same credentials as in the previous official Tuya integration. To obtain the credentials, please refer to official Tuya integration [documentation](https://web.archive.org/web/20231228044831/https://www.home-assistant.io/integrations/tuya/) [[1]](https://github.com/home-assistant/home-assistant.io/blob/a4e6d4819f1db584cc66ba2082508d3978f83f7e/source/_integrations/tuya.markdown)
 
+Newer protocol-v2 devices may also require a 16-character `secKey`. Enter it in
+the optional **Tuya BLE SecKey** field when configuring such a device.
+
 ## Supported devices list
+
+See a device marked Experimental you have? We could use real world testing feedback (send in a pull request with testing notes, or open an issue for gaps)
 
 <table>
   <thead>
@@ -107,7 +112,7 @@ The integration works locally, but connection to Tuya BLE device requires device
     <tr>
       <td>TH05 Temperature Sensor</td>
       <td><code>vyfoip9h</code>, <code>1jvidcsf</code></td>
-      <td>—</td>
+      <td>Experimental</td>
     </tr>
     <tr>
       <td>Soil Thermo-Hygrometer</td>
@@ -122,8 +127,8 @@ The integration works locally, but connection to Tuya BLE device requires device
       <td>—</td>
     </tr>
     <tr>
-      <td rowspan="21"><strong>Smart Locks</strong></td>
-      <td rowspan="21"><code>ms</code>, <code>jtmspro</code></td>
+      <td rowspan="24"><strong>Smart Locks</strong></td>
+      <td rowspan="24"><code>ms</code>, <code>jtmspro</code></td>
       <td>Smart Lock</td>
       <td><code>ludzroix</code>, <code>isk2p555</code>, <code>gumrixyt</code>, <code>uamrw6h3</code>, <code>sidhzylo</code>, <code>mqc2hevy</code>, <code>7a4xvbtt</code></td>
       <td>—</td>
@@ -139,9 +144,14 @@ The integration works locally, but connection to Tuya BLE device requires device
       <td>—</td>
     </tr>
     <tr>
+      <td>Guard Dog Security Smart Lock (BS_PLD01)</td>
+      <td><code>wgv4haro</code></td>
+      <td>Experimental</td>
+    </tr>
+    <tr>
       <td>HU06 Smart Lock</td>
       <td><code>stugc8dl</code></td>
-      <td>—</td>
+      <td>Experimental</td>
     </tr>
     <tr>
       <td>Raybuke K7 Pro+</td>
@@ -224,15 +234,31 @@ The integration works locally, but connection to Tuya BLE device requires device
       <td>—</td>
     </tr>
     <tr>
+      <td>BSTUOKEY Invisible Lock</td>
+      <td><code>kpn4zaf7</code></td>
+      <td>Invisible induction lock.</td>
+    </tr>
+    <tr>
       <td>XCase NX-4964 Lock Box</td>
       <td><code>qicggi0m</code></td>
       <td>—</td>
     </tr>
     <tr>
-      <td><strong>Climate</strong></td>
+      <td>Example Product Securosmart lock</td>
+      <td><code>uyf1ewof</code></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td rowspan="2"><strong>Climate</strong></td>
       <td><code>wk</code></td>
       <td>Thermostatic Radiator Valve</td>
       <td><code>drlajpqc</code>, <code>nhj2j7su</code>, <code>zmachryv</code></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><code>wkf</code></td>
+      <td>Thermostatic Radiator Valve</td>
+      <td><code>llflaywg</code></td>
       <td>—</td>
     </tr>
     <tr>
@@ -251,8 +277,8 @@ The integration works locally, but connection to Tuya BLE device requires device
     </tr>
     <tr>
       <td>2-outlet irrigation computer</td>
-      <td><code>hfgdqhho</code>, <code>fnlw6npo</code>, <code>qycalacn</code>, <code>jjqi2syk</code></td>
-      <td>Also known as: SGW02, SGW08, MOES BWV-YC02-EU-GY, Kogan SmarterHome KASMWATMRDA / KASMWTV2LVA.</td>
+      <td><code>hfgdqhho</code>, <code>fnlw6npo</code>, <code>qycalacn</code>, <code>jjqi2syk</code>, <code>jntxv3q4</code></td>
+      <td>Also known as: SGW02, SGW08, YZD02B, MOES BWV-YC02-EU-GY, Kogan SmarterHome KASMWATMRDA / KASMWTV2LVA.</td>
     </tr>
     <tr>
       <td>RESTMO BT Water Meter (FML026A)</td>
@@ -292,8 +318,8 @@ The integration works locally, but connection to Tuya BLE device requires device
       <td>Experimental.</td>
     </tr>
     <tr>
-      <td rowspan="6"><strong>Water valve controller</strong></td>
-      <td rowspan="6"><code>sfkzq</code></td>
+      <td rowspan="9"><strong>Water valve controller</strong></td>
+      <td rowspan="9"><code>sfkzq</code></td>
       <td>Water valve controller</td>
       <td><code>nxquc5lb</code></td>
       <td>—</td>
@@ -324,8 +350,23 @@ The integration works locally, but connection to Tuya BLE device requires device
       <td>Also known as YZD05 water valve/irrigation timer.</td>
     </tr>
     <tr>
-      <td rowspan="4"><strong>Lights</strong></td>
-      <td rowspan="4">Multiple (e.g. <code>dd</code> for Strip Lights)</td>
+      <td>HCT-611 Water Timer</td>
+      <td><code>tqzkwarw</code></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Unistyle WT-04W Water Timer</td>
+      <td><code>ojrvmfkk</code></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>MoistenLand Water Timer</td>
+      <td><code>8t5hebn0</code></td>
+      <td>Experimental</td>
+    </tr>
+    <tr>
+      <td rowspan="5"><strong>Lights</strong></td>
+      <td rowspan="5">Multiple (e.g. <code>dd</code>, <code>dj</code>)</td>
       <td>Strip Lights / Magiacous RGB light bar</td>
       <td><code>nvfrtxlq</code></td>
       <td rowspan="4">Most BLE light products should be supported as the Light class tries to get device description from the cloud when they are added. But only Strip Lights (category_id 'dd') Magiacous RGB light bar (product_id 'nvfrtxlq') has been tested.<br><br>See note on Bluetooth Mesh light compatibility below.</td>
@@ -341,6 +382,11 @@ The integration works locally, but connection to Tuya BLE device requires device
     <tr>
       <td>RGB Strip Light</td>
       <td><code>0qgrjxum</code></td>
+    </tr>
+    <tr>
+      <td>LED BULB B509Z2</td>
+      <td><code>bpqbwf8y</code></td>
+      <td>Experimental</td>
     </tr>
     <tr>
       <td><strong>Wireless switches</strong></td>
@@ -360,6 +406,13 @@ The integration works locally, but connection to Tuya BLE device requires device
       <td>Parkside Performance Smart Battery 8Ah</td>
       <td><code>ajrhf1aj</code></td>
       <td>—</td>
+    </tr>
+    <tr>
+      <td><strong>Humidifier</strong></td>
+      <td><code>jsq</code></td>
+      <td>Dituo DT-T2190A Aroma Diffuser</td>
+      <td><code>if1nolcm</code></td>
+      <td>Experimental</td>
     </tr>
   </tbody>
 </table>

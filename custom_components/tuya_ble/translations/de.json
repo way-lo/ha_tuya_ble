@@ -79,7 +79,7 @@
                 "name": "Alarmstufe"
             },
             "countdown": {
-                "name": "Bewässerungsdauer"
+                "name": "Countdown"
             },
             "countdown_duration": {
                 "name": "Bewässerungsdauer"
@@ -136,6 +136,12 @@
             "weather_delay": {
                 "name": "Wetterverzögerung"
             },
+            "weather_delay_z1": {
+                "name": "Wetterverzögerung - Zone 1"
+            },
+            "weather_delay_z2": {
+                "name": "Wetterverzögerung - Zone 2"
+            },
             "smart_weather": {
                 "name": "Intelligentes Wetter"
             },
@@ -148,6 +154,35 @@
             },
             "temperature_unit": {
                 "name": "Temperatureinheit"
+            },
+            "timer": {
+                "name": "Timer",
+                "state": {
+                    "cancel": "Abbrechen",
+                    "1h": "1 Stunde",
+                    "3h": "3 Stunden",
+                    "6h": "6 Stunden"
+                }
+            },
+            "scene": {
+                "name": "Szene",
+                "state": {
+                    "night": "Nacht",
+                    "read": "Lesen",
+                    "work": "Arbeiten",
+                    "rest": "Entspannen",
+                    "grassland": "Wiese",
+                    "colorful": "Party",
+                    "gorgeous": "Prachtvoll",
+                    "dazzle": "Flackern"
+                }
+            },
+            "spray_mode": {
+                "name": "Sprühmodus",
+                "state": {
+                    "small": "Niedrig",
+                    "large": "Hoch"
+                }
             }
         },
         "sensor": {
@@ -220,7 +255,18 @@
                 "name": "Bodenfeuchtigkeit"
             },
             "work_state": {
-                "name": "Betriebszustand"
+                "name": "Betriebszustand",
+                "state": {
+                    "auto": "Auto",
+                    "manual": "Manuell",
+                    "idle": "Inaktiv"
+                }
+            },
+            "work_state_z1": {
+                "name": "Betriebszustand - Zone 1"
+            },
+            "work_state_z2": {
+                "name": "Betriebszustand - Zone 2"
             },
             "residual_electricity": {
                 "name": "Batterie"
@@ -290,6 +336,9 @@
             },
             "unlock_temp_pwd": {
                 "name": "Zuletzt verwendetes temporäres Passwort"
+            },
+            "time_remaining": {
+                "name": "Restzeit"
             }
         },
         "switch": {
@@ -349,6 +398,9 @@
             },
             "window_check": {
                 "name": "Fensterprüfung"
+            },
+            "switch_spray": {
+                "name": "Sprühen"
             }
         },
         "text": {

@@ -96,6 +96,26 @@ mapping: dict[str, TuyaBLECategoryBinarySensorMapping] = {
             ),
         },
     ),
+    "wkf": TuyaBLECategoryBinarySensorMapping(
+        products={
+            **dict.fromkeys(
+                [
+                    "llflaywg",
+                ],
+                [  # Thermostatic Radiator Valve
+                    TuyaBLEBinarySensorMapping(
+                        dp_id=105,
+                        description=BinarySensorEntityDescription(
+                            key="battery",
+                            # icon="mdi:battery-alert",
+                            device_class=BinarySensorDeviceClass.BATTERY,
+                            entity_category=EntityCategory.DIAGNOSTIC,
+                        ),
+                    )
+                ],
+            ),
+        },
+    ),
     "wk": TuyaBLECategoryBinarySensorMapping(
         products={
             **dict.fromkeys(
@@ -142,6 +162,26 @@ mapping: dict[str, TuyaBLECategoryBinarySensorMapping] = {
     ),
     "sfkzq": TuyaBLECategoryBinarySensorMapping(
         products={
+            "8t5hebn0": [  # MoistenLand Water Timer
+                TuyaBLEBinarySensorMapping(
+                    dp_id=4,
+                    description=BinarySensorEntityDescription(
+                        key="fault",
+                        device_class=BinarySensorDeviceClass.PROBLEM,
+                        entity_category=EntityCategory.DIAGNOSTIC,
+                    ),
+                    getter=lambda sensor: setattr(
+                        sensor,
+                        "_attr_is_on",
+                        bool(
+                            _bitmap_value_to_int(sensor._device.datapoints[4].value)
+                            if sensor._device.datapoints[4]
+                            and sensor._device.datapoints[4].value is not None
+                            else False
+                        ),
+                    ),
+                ),
+            ],
             "ldcdnigc": [
                 TuyaBLEBinarySensorMapping(
                     dp_id=1,
@@ -224,6 +264,23 @@ mapping: dict[str, TuyaBLECategoryBinarySensorMapping] = {
     ),
     "jtmspro": TuyaBLECategoryBinarySensorMapping(
         products={
+            "uyf1ewof": [
+                TuyaBLEBinarySensorMapping(
+                    dp_id=47,
+                    description=BinarySensorEntityDescription(
+                        key="lock_motor_state",
+                        entity_category=EntityCategory.DIAGNOSTIC,
+                    ),
+                ),
+                TuyaBLEBinarySensorMapping(
+                    dp_id=22,
+                    description=BinarySensorEntityDescription(
+                        key="hijack",
+                        device_class=BinarySensorDeviceClass.TAMPER,
+                        entity_category=EntityCategory.DIAGNOSTIC,
+                    ),
+                ),
+            ],
             **dict.fromkeys(
                 [
                     "stugc8dl",
@@ -331,6 +388,29 @@ mapping: dict[str, TuyaBLECategoryBinarySensorMapping] = {
                         bool(
                             _bitmap_value_to_int(sensor._device.datapoints[11].value)
                             if sensor._device.datapoints[11]
+                            else False
+                        ),
+                    ),
+                ),
+            ],
+        },
+    ),
+    "jsq": TuyaBLECategoryBinarySensorMapping(
+        products={
+            "if1nolcm": [
+                TuyaBLEBinarySensorMapping(
+                    dp_id=12,
+                    description=BinarySensorEntityDescription(
+                        key="fault",
+                        device_class=BinarySensorDeviceClass.PROBLEM,
+                        entity_category=EntityCategory.DIAGNOSTIC,
+                    ),
+                    getter=lambda sensor: setattr(
+                        sensor,
+                        "_attr_is_on",
+                        bool(
+                            _bitmap_value_to_int(sensor._device.datapoints[12].value)
+                            if sensor._device.datapoints[12]
                             else False
                         ),
                     ),

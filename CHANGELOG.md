@@ -5,6 +5,55 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog],
 and this project adheres to [Semantic Versioning].
 
+## [0.8.2](https://github.com/ha-tuya-ble/ha_tuya_ble/compare/0.8.1...0.8.2) (2026-08-11)
+
+
+### Bug Fixes
+
+* add raw bluetooth unlock support for LA-01 (oyqux5vv) ([047db1e](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/047db1e1cbc750882332817167f8d6d1bb9facca))
+* add raw bluetooth unlock support for LA-01 (oyqux5vv) ([#279](https://github.com/ha-tuya-ble/ha_tuya_ble/issues/279)) ([fd0e9b9](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/fd0e9b98f61a1d0a4e6d1544566879119075891d))
+* add support for Example Product Securosmart lock (uyf1ewof) ([7011781](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/701178136027e5845a1f8cfd6d04d6bc369daf95))
+* **device:** Add MoistenLand Water Timer (8t5hebn0) mapping ([#273](https://github.com/ha-tuya-ble/ha_tuya_ble/issues/273)) ([72ff9ba](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/72ff9ba26d0128c38cd4aefb224af24c0b096b1a))
+* **device:** add support for Product Securosmart lock (uyf1ewof) ([2496f94](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/2496f94bf31f7cbdb7067b3c55a82e95fc07abcd))
+* **device:** map Fingerbot Plus 6jcvqwh0 in the kg category ([#276](https://github.com/ha-tuya-ble/ha_tuya_ble/issues/276)) ([aa7491b](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/aa7491b4c7253b058da20fc44c5c915c329a7c73))
+* **protocol:** release a connection that dropped unexpectedly ([228485d](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/228485d39ff98940b96d39920d3516fb9b853a3d))
+
+## [0.8.1](https://github.com/ha-tuya-ble/ha_tuya_ble/compare/0.8.0...0.8.1) (2026-08-03)
+
+
+### Bug Fixes
+
+* add support for wkf climate category and llflaywg TRV ([da77c6b](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/da77c6b1bfb3c4845b486415834ed1e0aace7b51))
+* add support for wkf climate category and llflaywg TRV ([#261](https://github.com/ha-tuya-ble/ha_tuya_ble/issues/261)) ([c456c54](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/c456c54d384a7e8ecfb0c47fcf1521acf284519b))
+* **device:** Add support for BSTUOKEY Invisible Lock ([#234](https://github.com/ha-tuya-ble/ha_tuya_ble/issues/234)) ([c016d3e](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/c016d3e100209e8c589c6079b9971337f46c969d))
+* **device:** Add support for Dituo DT-T2190A Aroma Diffuser ([#260](https://github.com/ha-tuya-ble/ha_tuya_ble/issues/260)) ([dc419b9](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/dc419b95f75e9c00c4642dd4e996a9fb575e5478))
+* **device:** Add support for LED BULB B509Z2 ([#263](https://github.com/ha-tuya-ble/ha_tuya_ble/issues/263)) ([62a37dd](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/62a37dded59009e3613417d65922ce48f8e6bc0c))
+* **device:** Add support for Unistyle WT-04W Water Timer (ojrvmfkk) ([#232](https://github.com/ha-tuya-ble/ha_tuya_ble/issues/232)) ([9f404f5](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/9f404f5aff8e0f720529366a6c938256583651ee))
+* Remove doubled translations ([868a94a](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/868a94a2d112b325d511747306b56fefee31ec02))
+* Remove doubled translations ([364f10a](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/364f10a443a143b464f74b6f782d016962f85505))
+* **select:** Expose YZD02B weather delays ([b053d4e](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/b053d4e81ed0d6879423087c51d1d24143f7b6ea))
+* **sensor:** Expose YZD02B zone work states ([566d5cd](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/566d5cd30107209cd9afc0229bb0f9589f61094a))
+* update wgv4haro lock and unlock mapping ([#272](https://github.com/ha-tuya-ble/ha_tuya_ble/issues/272)) ([a7c00d3](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/a7c00d38f7742e8e0ddb21a7e23f0779756506d8))
+
+## [0.8.0](https://github.com/ha-tuya-ble/ha_tuya_ble/compare/0.7.2...0.8.0) (2026-08-02)
+
+
+### Features
+
+* add dynamic GATT characteristics selection for Tuya BLE devices ([#249](https://github.com/ha-tuya-ble/ha_tuya_ble/issues/249)) via @Shirkamdev ([706b02c](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/706b02c43005207259fb22b88928a37289fac231))
+* add support for HCT-611 Water Timer (tqzkwarw) ([#247](https://github.com/ha-tuya-ble/ha_tuya_ble/issues/247)) ([e6f4815](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/e6f481558f7bb0e97ce068b47ccc5dab72ac5233))
+* **device:** Support YZD02B irrigation timer ([aae29cf](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/aae29cf00a26ea2857c3631a687ce5445758a25b))
+* **protocol:** Add Tuya BLE v4 datapoint transport ([ad9d694](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/ad9d6945adba0e7fa09776ef27805e701dcc438d))
+* **protocol:** Add Tuya BLE v4 datapoint transport ([#254](https://github.com/ha-tuya-ble/ha_tuya_ble/issues/254)) ([13948ad](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/13948ad916d85c1a2faf5e1fc6fde73e93ec0587))
+* **security:** Support Tuya BLE SecKey authentication ([c55aa6b](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/c55aa6bb64975af1250209257c9cb03e1dd81a8e))
+* **security:** Support Tuya BLE SecKey authentication ([f0bd8f5](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/f0bd8f5718ba52670cab0fe919931f6798db31bb))
+
+
+### Bug Fixes
+
+* **device:** add Guard Dog Security BS_PLD01 smart lock support (fix [#251](https://github.com/ha-tuya-ble/ha_tuya_ble/issues/251)) ([1833e2e](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/1833e2e5be48998e1c208581cd6e942123baaf57))
+* **device:** Support YZD02B irrigation timer ([3feb418](https://github.com/ha-tuya-ble/ha_tuya_ble/commit/3feb418e62c24d329579646a56ad665ff1519196))
+
 ## [0.7.2](https://github.com/ha-tuya-ble/ha_tuya_ble/compare/0.7.1...0.7.2) (2026-07-20)
 
 

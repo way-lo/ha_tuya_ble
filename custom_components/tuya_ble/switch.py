@@ -234,6 +234,35 @@ mapping: dict[str, TuyaBLECategorySwitchMapping] = {
                     ),
                 ),
             ],
+            "ojrvmfkk": [
+                # Valve 1 (z1) switch - DP 1
+                TuyaBLESwitchMapping(
+                    dp_id=1,
+                    description=SwitchEntityDescription(
+                        key="water_valve_z1",
+                        icon="mdi:valve",
+                        entity_registry_enabled_default=True,
+                    ),
+                ),
+                # Use weather switch - DP 14
+                TuyaBLESwitchMapping(
+                    dp_id=14,
+                    description=SwitchEntityDescription(
+                        key="weather_switch",
+                        icon="mdi:weather-cloudy",
+                        entity_category=EntityCategory.CONFIG,
+                    ),
+                ),
+                # Valve 2 (z2) switch - DP 121
+                TuyaBLESwitchMapping(
+                    dp_id=121,
+                    description=SwitchEntityDescription(
+                        key="water_valve_z2",
+                        icon="mdi:valve",
+                        entity_registry_enabled_default=True,
+                    ),
+                ),
+            ],
             "16wgjvck": [  # Aldi/Ferrex Smart Water Valve
                 TuyaBLESwitchMapping(
                     dp_id=1,
@@ -244,11 +273,90 @@ mapping: dict[str, TuyaBLECategorySwitchMapping] = {
                     setter=set_16wgjvck_water_valve,
                 ),
             ],
+            "tqzkwarw": [  # HCT-611 Water Timer
+                TuyaBLESwitchMapping(
+                    dp_id=1,
+                    description=SwitchEntityDescription(
+                        key="water_valve",
+                        icon="mdi:valve",
+                    ),
+                ),
+                TuyaBLEWaterValveWeatherSwitchMapping(dp_id=14),
+            ],
+            "8t5hebn0": [  # MoistenLand Water Timer
+                TuyaBLESwitchMapping(
+                    dp_id=1,
+                    description=SwitchEntityDescription(
+                        key="water_valve",
+                        icon="mdi:valve",
+                        entity_registry_enabled_default=True,
+                    ),
+                ),
+            ],
             **dict.fromkeys(
                 ["nxquc5lb", "svhikeyq"],
                 [  # Smart water timer - SOP10
                     TuyaBLEWaterValveSwitchMapping(dp_id=1),
                     TuyaBLEWaterValveWeatherSwitchMapping(dp_id=14),
+                ],
+            ),
+        },
+    ),
+    "wkf": TuyaBLECategorySwitchMapping(
+        products={
+            **dict.fromkeys(
+                [
+                    "llflaywg",
+                ],  # Thermostatic Radiator Valve
+                [
+                    TuyaBLESwitchMapping(
+                        dp_id=8,
+                        description=SwitchEntityDescription(
+                            key="window_check",
+                            icon="mdi:window-closed",
+                            entity_category=EntityCategory.CONFIG,
+                        ),
+                    ),
+                    TuyaBLESwitchMapping(
+                        dp_id=10,
+                        description=SwitchEntityDescription(
+                            key="antifreeze",
+                            icon="mdi:snowflake-off",
+                            entity_category=EntityCategory.CONFIG,
+                        ),
+                    ),
+                    TuyaBLESwitchMapping(
+                        dp_id=40,
+                        description=SwitchEntityDescription(
+                            key="child_lock",
+                            icon="mdi:account-lock",
+                            entity_category=EntityCategory.CONFIG,
+                        ),
+                    ),
+                    TuyaBLESwitchMapping(
+                        dp_id=130,
+                        description=SwitchEntityDescription(
+                            key="water_scale_proof",
+                            icon="mdi:water-check",
+                            entity_category=EntityCategory.CONFIG,
+                        ),
+                    ),
+                    TuyaBLESwitchMapping(
+                        dp_id=107,
+                        description=SwitchEntityDescription(
+                            key="programming_mode",
+                            icon="mdi:calendar-edit",
+                            entity_category=EntityCategory.CONFIG,
+                        ),
+                    ),
+                    TuyaBLESwitchMapping(
+                        dp_id=108,
+                        description=SwitchEntityDescription(
+                            key="programming_switch",
+                            icon="mdi:calendar-clock",
+                            entity_category=EntityCategory.CONFIG,
+                        ),
+                    ),
                 ],
             ),
         },
@@ -282,6 +390,26 @@ mapping: dict[str, TuyaBLECategorySwitchMapping] = {
                         key="carbon_dioxide_alarm_switch",
                         icon="mdi:molecule-co2",
                         entity_category=EntityCategory.CONFIG,
+                    ),
+                ),
+            ],
+        },
+    ),
+    "jsq": TuyaBLECategorySwitchMapping(
+        products={
+            "if1nolcm": [
+                TuyaBLESwitchMapping(
+                    dp_id=1,
+                    description=SwitchEntityDescription(
+                        key="switch",
+                        icon="mdi:power",
+                    ),
+                ),
+                TuyaBLESwitchMapping(
+                    dp_id=2,
+                    description=SwitchEntityDescription(
+                        key="switch_spray",
+                        icon="mdi:spray",
                     ),
                 ),
             ],
@@ -419,6 +547,23 @@ mapping: dict[str, TuyaBLECategorySwitchMapping] = {
     ),
     "jtmspro": TuyaBLECategorySwitchMapping(
         products={
+            "uyf1ewof": [
+                TuyaBLESwitchMapping(
+                    dp_id=33,
+                    description=SwitchEntityDescription(
+                        key="automatic_lock",
+                        icon="mdi:lock-clock",
+                        entity_category=EntityCategory.CONFIG,
+                    ),
+                ),
+                TuyaBLESwitchMapping(
+                    dp_id=46,
+                    description=SwitchEntityDescription(
+                        key="manual_lock",
+                        icon="mdi:lock-plus",
+                    ),
+                ),
+            ],
             "y2yaegze": [
                 TuyaBLESwitchMapping(
                     dp_id=33,
@@ -495,7 +640,13 @@ mapping: dict[str, TuyaBLECategorySwitchMapping] = {
     "kg": TuyaBLECategorySwitchMapping(
         products={
             **dict.fromkeys(
-                ["mknd4lci", "riecov42", "bs3ubslo", "gnpbj0bq"],  # Fingerbot Plus
+                [
+                    "mknd4lci",
+                    "riecov42",
+                    "bs3ubslo",
+                    "gnpbj0bq",
+                    "6jcvqwh0",
+                ],  # Fingerbot Plus
                 [
                     TuyaBLEFingerbotSwitchMapping(dp_id=1),
                     TuyaBLEReversePositionsMapping(dp_id=104),
@@ -631,6 +782,7 @@ mapping: dict[str, TuyaBLECategorySwitchMapping] = {
                     "qycalacn",
                     "fnlw6npo",
                     "jjqi2syk",
+                    "jntxv3q4",
                 ],  # Irrigation computer - dual outlet
                 [
                     TuyaBLESwitchMapping(

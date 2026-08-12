@@ -176,10 +176,12 @@ class TuyaBLEEntity(CoordinatorEntity):
                         int_value = 0
                         values = self.device.function[code].values
                         if isinstance(values, dict):
-                            range = values.get("range")
-                            if isinstance(range, list):
+                            values_range = values.get("range")
+                            if isinstance(values_range, list):
                                 int_value = (
-                                    range.index(value) if value in range else None
+                                    values_range.index(value)
+                                    if value in values_range
+                                    else None
                                 )
                         self.send_dp_value(
                             code, TuyaBLEDataPointType.DT_ENUM, int_value
@@ -376,6 +378,18 @@ devices_database: dict[str, TuyaBLECategoryInfo] = {
             ),
         },
     ),
+    "wkf": TuyaBLECategoryInfo(
+        products={
+            **dict.fromkeys(
+                [
+                    "llflaywg",
+                ],  # device product_id
+                TuyaBLEProductInfo(
+                    name="Thermostatic Radiator Valve",
+                ),
+            ),
+        },
+    ),
     "wxkg": TuyaBLECategoryInfo(
         products={
             "kpzc6pm8": TuyaBLEProductInfo(
@@ -424,6 +438,16 @@ devices_database: dict[str, TuyaBLECategoryInfo] = {
                 manufacturer="Foxgard",
                 lock=1,
             ),
+            "kpn4zaf7": TuyaBLEProductInfo(
+                name="Invisible induction lock",
+                manufacturer="BSTUOKEY",
+                lock=1,
+            ),
+            "wgv4haro": TuyaBLEProductInfo(
+                name="Guard Dog Security Smart Lock",
+                manufacturer="Guard Dog Security",
+                lock=1,
+            ),
             "0qxp5u7s": TuyaBLEProductInfo(
                 name="Pulido PLD_P130 Smart Lever Lock",
                 lock=1,
@@ -448,6 +472,11 @@ devices_database: dict[str, TuyaBLECategoryInfo] = {
     ),
     "jtmspro": TuyaBLECategoryInfo(
         products={
+            "uyf1ewof": TuyaBLEProductInfo(
+                name="Securosmart lock",
+                manufacturer="Example Product",
+                lock=1,
+            ),
             "y2yaegze": TuyaBLEProductInfo(name="Drawer Lock CTL20H", lock=1),
             "hc7n0urm": TuyaBLEProductInfo(  # device product_id
                 name="A1 Ultra-JM",
@@ -559,7 +588,13 @@ devices_database: dict[str, TuyaBLECategoryInfo] = {
     "kg": TuyaBLECategoryInfo(
         products={
             **dict.fromkeys(
-                ["mknd4lci", "riecov42", "bs3ubslo", "gnpbj0bq"],  # device product_ids
+                [
+                    "mknd4lci",
+                    "riecov42",
+                    "bs3ubslo",
+                    "gnpbj0bq",
+                    "6jcvqwh0",
+                ],  # device product_ids
                 TuyaBLEProductInfo(
                     name="Fingerbot Plus",
                     fingerbot=TuyaBLEFingerbotInfo(
@@ -673,16 +708,30 @@ devices_database: dict[str, TuyaBLECategoryInfo] = {
             "ldcdnigc": TuyaBLEProductInfo(
                 name="ZX-7378 Smart Irrigation Controller",
             ),
+            "ojrvmfkk": TuyaBLEProductInfo(
+                name="Unistyle WT-04W Water Timer",
+                manufacturer="Unistyle",
+            ),
+            "tqzkwarw": TuyaBLEProductInfo(
+                name="HCT-611 Water Timer",
+            ),
+            "8t5hebn0": TuyaBLEProductInfo(
+                name="MoistenLand Water Timer",
+                manufacturer="MoistenLand",
+            ),
         },
     ),
     "ggq": TuyaBLECategoryInfo(
         products={
+            "jntxv3q4": TuyaBLEProductInfo(
+                name="YZD02B dual irrigation timer",
+            ),
             **dict.fromkeys(
                 ["6pahkcau", "hfgdqhho"],  # PPB A1  # SGW08  # device product_id
                 TuyaBLEProductInfo(
                     name="Irrigation computer",
                 ),
-            )
+            ),
         },
     ),
     "dd": TuyaBLECategoryInfo(
@@ -704,6 +753,13 @@ devices_database: dict[str, TuyaBLECategoryInfo] = {
         info=TuyaBLEProductInfo(
             name="Lights",
         ),
+    ),
+    "dj": TuyaBLECategoryInfo(
+        products={
+            "bpqbwf8y": TuyaBLEProductInfo(
+                name="LED BULB B509Z2",
+            ),
+        },
     ),
     "cl": TuyaBLECategoryInfo(
         products={
@@ -733,6 +789,14 @@ devices_database: dict[str, TuyaBLECategoryInfo] = {
         products={
             "mqqna0px": TuyaBLEProductInfo(
                 name="RESTMO BT Water Meter",
+            ),
+        },
+    ),
+    "jsq": TuyaBLECategoryInfo(
+        products={
+            "if1nolcm": TuyaBLEProductInfo(
+                name="DT-T2190A Aroma Diffuser",
+                manufacturer="Dituo",
             ),
         },
     ),

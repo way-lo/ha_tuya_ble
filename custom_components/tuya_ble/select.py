@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from typing import Callable
 
 import logging
 
@@ -122,12 +123,93 @@ class TuyaBLETemperatureUnitMapping(TuyaBLESelectMapping):
 mapping: dict[str, TuyaBLECategorySelectMapping] = {
     "sfkzq": TuyaBLECategorySelectMapping(
         products={
+            "ojrvmfkk": [
+                # Weather delay - DP 10
+                TuyaBLESelectMapping(
+                    dp_id=10,
+                    description=SelectEntityDescription(
+                        key="weather_delay",
+                        options=[
+                            "cancel",
+                            "1day",
+                            "2day",
+                            "3day",
+                            "4day",
+                            "5day",
+                            "6day",
+                            "7day",
+                        ],
+                        entity_category=EntityCategory.CONFIG,
+                    ),
+                    dp_type=TuyaBLEDataPointType.DT_STRING,
+                ),
+                # Weather - DP 13
+                TuyaBLESelectMapping(
+                    dp_id=13,
+                    description=SelectEntityDescription(
+                        key="weather",
+                        options=[
+                            "sunny",
+                            "rainy",
+                        ],
+                        entity_category=EntityCategory.CONFIG,
+                    ),
+                    dp_type=TuyaBLEDataPointType.DT_STRING,
+                ),
+            ],
             "16wgjvck": [
                 TuyaBLESelectMapping(
                     dp_id=12,
                     description=SelectEntityDescription(
                         key="work_state",
                         options=["auto", "manual"],
+                        entity_category=EntityCategory.CONFIG,
+                    ),
+                ),
+            ],
+            "8t5hebn0": [  # MoistenLand Water Timer
+                TuyaBLESelectMapping(
+                    dp_id=10,
+                    dp_type=TuyaBLEDataPointType.DT_STRING,
+                    description=SelectEntityDescription(
+                        key="weather_delay",
+                        options=[
+                            "cancel",
+                            "24h",
+                            "48h",
+                            "72h",
+                        ],
+                        entity_category=EntityCategory.CONFIG,
+                    ),
+                ),
+            ],
+            "tqzkwarw": [  # HCT-611 Water Timer
+                TuyaBLESelectMapping(
+                    dp_id=10,
+                    description=SelectEntityDescription(
+                        key="weather_delay",
+                        options=[
+                            "cancel",
+                            "24h",
+                            "48h",
+                            "72h",
+                        ],
+                        entity_category=EntityCategory.CONFIG,
+                    ),
+                ),
+                TuyaBLESelectMapping(
+                    dp_id=13,
+                    description=SelectEntityDescription(
+                        key="smart_weather",
+                        options=[
+                            "sunny",
+                            "clear",
+                            "cloud",
+                            "cloudy",
+                            "rainy",
+                            "snow",
+                            "fog",
+                        ],
                         entity_category=EntityCategory.CONFIG,
                     ),
                 ),
@@ -204,6 +286,48 @@ mapping: dict[str, TuyaBLECategorySelectMapping] = {
             ],
         },
     ),
+    "ggq": TuyaBLECategorySelectMapping(
+        products={
+            "jntxv3q4": [  # YZD02B dual irrigation timer
+                TuyaBLESelectMapping(
+                    dp_id=117,
+                    dp_type=TuyaBLEDataPointType.DT_ENUM,
+                    description=SelectEntityDescription(
+                        key="weather_delay_z1",
+                        options=[
+                            "cancel",
+                            "24h",
+                            "48h",
+                            "72h",
+                            "96h",
+                            "120h",
+                            "144h",
+                            "168h",
+                        ],
+                        entity_category=EntityCategory.CONFIG,
+                    ),
+                ),
+                TuyaBLESelectMapping(
+                    dp_id=114,
+                    dp_type=TuyaBLEDataPointType.DT_ENUM,
+                    description=SelectEntityDescription(
+                        key="weather_delay_z2",
+                        options=[
+                            "cancel",
+                            "24h",
+                            "48h",
+                            "72h",
+                            "96h",
+                            "120h",
+                            "144h",
+                            "168h",
+                        ],
+                        entity_category=EntityCategory.CONFIG,
+                    ),
+                ),
+            ],
+        },
+    ),
     "co2bj": TuyaBLECategorySelectMapping(
         products={
             "59s19z5m": [TuyaBLETemperatureUnitMapping(dp_id=101)],  # CO2 Detector
@@ -257,6 +381,7 @@ mapping: dict[str, TuyaBLECategorySelectMapping] = {
                     "okkyfgfs",
                     "sidhzylo",
                     "7a4xvbtt",
+                    "wgv4haro",
                 ],  # Smart Lock
                 [
                     TuyaBLESelectMapping(
@@ -275,7 +400,7 @@ mapping: dict[str, TuyaBLECategorySelectMapping] = {
                 ],
             ),
             **dict.fromkeys(
-                ["6fibxtph", "99gv5nmz"],
+                ["6fibxtph", "99gv5nmz", "kpn4zaf7"],
                 [
                     TuyaBLESelectMapping(
                         dp_id=31,
@@ -551,7 +676,13 @@ mapping: dict[str, TuyaBLECategorySelectMapping] = {
     "kg": TuyaBLECategorySelectMapping(
         products={
             **dict.fromkeys(
-                ["mknd4lci", "riecov42", "bs3ubslo", "gnpbj0bq"],  # Fingerbot Plus
+                [
+                    "mknd4lci",
+                    "riecov42",
+                    "bs3ubslo",
+                    "gnpbj0bq",
+                    "6jcvqwh0",
+                ],  # Fingerbot Plus
                 [
                     TuyaBLEFingerbotModeMapping(dp_id=101),
                 ],
@@ -621,6 +752,53 @@ mapping: dict[str, TuyaBLECategorySelectMapping] = {
             ],
         },
     ),
+    "jsq": TuyaBLECategorySelectMapping(
+        products={
+            "if1nolcm": [
+                TuyaBLESelectMapping(
+                    dp_id=3,
+                    description=SelectEntityDescription(
+                        key="spray_mode",
+                        options=[
+                            "small",
+                            "large",
+                        ],
+                        entity_category=EntityCategory.CONFIG,
+                    ),
+                ),
+                TuyaBLESelectMapping(
+                    dp_id=5,
+                    description=SelectEntityDescription(
+                        key="timer",
+                        options=[
+                            "cancel",
+                            "1h",
+                            "3h",
+                            "6h",
+                        ],
+                        entity_category=EntityCategory.CONFIG,
+                    ),
+                ),
+                TuyaBLESelectMapping(
+                    dp_id=101,
+                    description=SelectEntityDescription(
+                        key="scene",
+                        options=[
+                            "night",
+                            "read",
+                            "work",
+                            "rest",
+                            "grassland",
+                            "colorful",
+                            "dazzle",
+                            "gorgeous",
+                        ],
+                        entity_category=EntityCategory.CONFIG,
+                    ),
+                ),
+            ],
+        },
+    ),
 }
 
 
@@ -656,28 +834,35 @@ class TuyaBLESelect(TuyaBLEEntity, SelectEntity):
     @property
     def current_option(self) -> str | None:
         """Return the selected entity option to represent the entity state."""
-        # Raw value
-        value: str | None = None
         datapoint = self._device.datapoints[self._mapping.dp_id]
         if datapoint:
             value = datapoint.value
-            if 0 <= value < len(self._attr_options):
+            if isinstance(value, int) and 0 <= value < len(self._attr_options):
                 return self._attr_options[value]
 
-            return value
+            return str(value) if value is not None else None
         return None
 
     def select_option(self, value: str) -> None:
         """Change the selected option."""
         if value in self._attr_options:
-            int_value = self._attr_options.index(value)
-            datapoint = self._device.datapoints.get_or_create(
-                self._mapping.dp_id,
-                TuyaBLEDataPointType.DT_ENUM,
-                int_value,
-            )
-            if datapoint:
-                self._hass.create_task(datapoint.set_value(int_value))
+            if self._mapping.dp_type == TuyaBLEDataPointType.DT_STRING:
+                datapoint = self._device.datapoints.get_or_create(
+                    self._mapping.dp_id,
+                    TuyaBLEDataPointType.DT_STRING,
+                    value,
+                )
+                if datapoint:
+                    self._hass.create_task(datapoint.set_value(value))
+            else:
+                int_value = self._attr_options.index(value)
+                datapoint = self._device.datapoints.get_or_create(
+                    self._mapping.dp_id,
+                    TuyaBLEDataPointType.DT_ENUM,
+                    int_value,
+                )
+                if datapoint:
+                    self._hass.create_task(datapoint.set_value(int_value))
 
 
 async def async_setup_entry(

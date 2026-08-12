@@ -249,6 +249,19 @@ mapping: dict[str, TuyaBLECategoryNumberMapping] = {
                     ),
                 ),
             ],
+            "8t5hebn0": [  # MoistenLand Water Timer
+                TuyaBLENumberMapping(
+                    dp_id=11,
+                    description=NumberEntityDescription(
+                        key="countdown",
+                        icon="mdi:timer",
+                        native_max_value=86400,
+                        native_min_value=0,
+                        native_unit_of_measurement=UnitOfTime.SECONDS,
+                        native_step=1,
+                    ),
+                ),
+            ],
         },
     ),
     "dcb": TuyaBLECategoryNumberMapping(
@@ -316,6 +329,29 @@ mapping: dict[str, TuyaBLECategoryNumberMapping] = {
                             key="speed_percentage",
                             native_unit_of_measurement=PERCENTAGE,
                             icon="mdi:speedometer",
+                            entity_category=EntityCategory.CONFIG,
+                        ),
+                    ),
+                ],
+            ),
+        },
+    ),
+    "wkf": TuyaBLECategoryNumberMapping(
+        products={
+            **dict.fromkeys(
+                [
+                    "llflaywg",
+                ],  # Thermostatic Radiator Valve
+                [
+                    TuyaBLENumberMapping(
+                        dp_id=27,
+                        description=NumberEntityDescription(
+                            key="temperature_calibration",
+                            icon="mdi:thermometer-lines",
+                            native_max_value=6,
+                            native_min_value=-6,
+                            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+                            native_step=1,
                             entity_category=EntityCategory.CONFIG,
                         ),
                     ),
@@ -469,7 +505,13 @@ mapping: dict[str, TuyaBLECategoryNumberMapping] = {
     "kg": TuyaBLECategoryNumberMapping(
         products={
             **dict.fromkeys(
-                ["mknd4lci", "riecov42", "bs3ubslo", "gnpbj0bq"],  # Fingerbot Plus
+                [
+                    "mknd4lci",
+                    "riecov42",
+                    "bs3ubslo",
+                    "gnpbj0bq",
+                    "6jcvqwh0",
+                ],  # Fingerbot Plus
                 [
                     TuyaBLENumberMapping(
                         dp_id=102,
@@ -653,6 +695,7 @@ mapping: dict[str, TuyaBLECategoryNumberMapping] = {
                     "qycalacn",
                     "fnlw6npo",
                     "jjqi2syk",
+                    "jntxv3q4",
                 ],  # Irrigation computer - dual outlet
                 [
                     TuyaBLENumberMapping(
@@ -683,6 +726,32 @@ mapping: dict[str, TuyaBLECategoryNumberMapping] = {
     ),
     "sfkzq": TuyaBLECategoryNumberMapping(
         products={
+            "ojrvmfkk": [
+                # Valve 1 countdown - DP 11 (0 to 86400)
+                TuyaBLENumberMapping(
+                    dp_id=11,
+                    description=NumberEntityDescription(
+                        key="countdown_duration_z1",
+                        icon="mdi:timer",
+                        native_max_value=86400,
+                        native_min_value=0,
+                        native_unit_of_measurement=UnitOfTime.SECONDS,
+                        native_step=1,
+                    ),
+                ),
+                # Valve 2 countdown - DP 122 (0 to 86400)
+                TuyaBLENumberMapping(
+                    dp_id=122,
+                    description=NumberEntityDescription(
+                        key="countdown_duration_z2",
+                        icon="mdi:timer",
+                        native_max_value=86400,
+                        native_min_value=0,
+                        native_unit_of_measurement=UnitOfTime.SECONDS,
+                        native_step=1,
+                    ),
+                ),
+            ],
             "16wgjvck": [
                 TuyaBLENumberMapping(
                     dp_id=2,
@@ -710,6 +779,19 @@ mapping: dict[str, TuyaBLECategoryNumberMapping] = {
                     dp_id=15,
                     description=NumberEntityDescription(
                         key="use_time",
+                        icon="mdi:timer",
+                        native_max_value=86400,
+                        native_min_value=0,
+                        native_unit_of_measurement=UnitOfTime.SECONDS,
+                        native_step=1,
+                    ),
+                ),
+            ],
+            "tqzkwarw": [  # HCT-611 Water Timer
+                TuyaBLENumberMapping(
+                    dp_id=11,
+                    description=NumberEntityDescription(
+                        key="countdown",
                         icon="mdi:timer",
                         native_max_value=86400,
                         native_min_value=0,
@@ -878,6 +960,23 @@ mapping: dict[str, TuyaBLECategoryNumberMapping] = {
                     )
                 ],
             )
+        },
+    ),
+    "dj": TuyaBLECategoryNumberMapping(
+        products={
+            "bpqbwf8y": [  # LED BULB B509Z2
+                TuyaBLENumberMapping(
+                    dp_id=0,
+                    description=NumberEntityDescription(
+                        key="countdown",
+                        icon="mdi:timer",
+                        native_max_value=86400,
+                        native_min_value=0,
+                        native_unit_of_measurement=UnitOfTime.SECONDS,
+                        native_step=1,
+                    ),
+                ),
+            ],
         },
     ),
 }
