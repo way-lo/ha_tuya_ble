@@ -1,3 +1,6 @@
+Added the config for my smartlock, the Pulido PLD_P130 Smart Lever Lock 300D4D.
+PLD_P130 (0qxp5u7s)
+
 # Home Assistant support for Tuya BLE devices
 
 ## Overview
